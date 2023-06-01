@@ -49,3 +49,21 @@ std::string Utilities::ReadFileToString(std::string const &filePath) {
   }
   return result;
 }
+
+std::vector<std::string>
+Utilities::SplitStringByDelimiter(std::string const &inputStr,
+                                  std::string delimiter) {
+  std::vector<std::string> result;
+  int pos = 0;
+
+  std::string::size_type beg = 0;
+  for (auto end = 0; (end = inputStr.find(delimiter, end)) != std::string::npos;
+       ++end) {
+    result.push_back(inputStr.substr(beg, end - beg));
+    beg = end + delimiter.size();
+  }
+
+  result.push_back(inputStr.substr(beg));
+
+  return result;
+};
