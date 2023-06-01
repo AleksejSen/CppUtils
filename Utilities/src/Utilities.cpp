@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 std::vector<std::string>
 Utilities::ReadFileToStringVector(std::string const &filePath) {
@@ -17,7 +18,7 @@ Utilities::ReadFileToStringVector(std::string const &filePath) {
       std::string line;
       while (std::getline(input_file, line)) {
         result.push_back(line);
-        std::cout << __func__ << " line " << line << "\n";
+        // std::cout << __func__ << " line " << line << "\n";
       }
     }
 
@@ -27,19 +28,24 @@ Utilities::ReadFileToStringVector(std::string const &filePath) {
   return result;
 };
 
-// std::string file_path = "example.txt"; // Replace with your file path
-// std::ifstream input_file(file_path);
+std::string Utilities::ReadFileToString(std::string const &filePath) {
+  std::string result;
 
-// // Check if the file is opened successfully
-// if (.input_file.is_open()) {
-//   std::cerr << "Error opening the file: " << file_path << std::endl;
-//   return 1;
-// }
+  // Chack if file exists
+  if (std::filesystem::exists(filePath)) {
+    std::ifstream input_file(filePath);
+    if (!input_file.is_open()) {
+      std::cout << __func__ << ": Error opening File\n";
+      return result;
+    } else {
+      std::ostringstream ss;
+      ss << input_file.rdbuf();
+      result = ss.str();
+      // std::cout << "result: " << result << std::endl;
+    }
 
-// std::string line;
-// while (std::getline(input_file, line)) {
-//   std::cout << line << std::endl; // Process each line, e.g., print it
-// }
-
-// input_file.close();
-// return 0;
+  } else {
+    std::cout << __func__ << ": File not exists!\n";
+  }
+  return result;
+}

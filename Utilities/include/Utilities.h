@@ -10,6 +10,8 @@ private:
 public:
   static std::vector<std::string>
   ReadFileToStringVector(std::string const &filePath);
+
+  static std::string ReadFileToString(std::string const &filePath);
 };
 
 #endif
