@@ -5,6 +5,7 @@ int main(int argc, char **argv) {
 
   std::string file = "/home/alex/Documents/SW_Dew/Cpp/CodeTest/build.sh";
   std::string raw_data = "Monday;#%Tuesday;#%Wedesday;#%Thursday";
+  std::string tag = "\"SomeTag\"";
   auto data = Utilities::ReadFileToStringVector(file);
 
   for (auto s : data) {
@@ -21,6 +22,9 @@ int main(int argc, char **argv) {
   for (auto d : clean_data) {
     std::cout << "Clan data: " << d << "\n";
   }
+
+  std::cout << "Tag extract: "
+            << Utilities::GetStringBetweenTwoChar(tag, '\"', '\"') << "\n";
 
   return 0;
 }
