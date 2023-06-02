@@ -87,3 +87,20 @@ std::string Utilities::GetStringBetweenTwoChar(std::string const &inputStr,
 
   return result;
 };
+
+std::vector<std::string>
+Utilities::ExtractStringPatternRegex(std::string const &inputStr,
+                                     std::regex pattern) {
+  std::string input = inputStr;
+  std::smatch match;
+
+  std::vector<std::string> result;
+
+  while (std::regex_search(input, match, pattern)) {
+    result.push_back(match.str(0));
+    // suffix to find the rest of the string.
+    input = match.suffix().str();
+  }
+
+  return result;
+};

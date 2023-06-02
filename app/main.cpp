@@ -6,6 +6,10 @@ int main(int argc, char **argv) {
   std::string file = "/home/alex/Documents/SW_Dew/Cpp/CodeTest/build.sh";
   std::string raw_data = "Monday;#%Tuesday;#%Wedesday;#%Thursday";
   std::string tag = "\"SomeTag\"";
+  std::string regInput("My GeeksforGeeks is my GeeksforGeeks33 none of your "
+                       "GeeksforGeeks and more and more GeeksforGeeks and more "
+                       "and more GeeksforGeeksand more and more GeeksforGeeks");
+
   auto data = Utilities::ReadFileToStringVector(file);
 
   for (auto s : data) {
@@ -25,6 +29,13 @@ int main(int argc, char **argv) {
 
   std::cout << "Tag extract: "
             << Utilities::GetStringBetweenTwoChar(tag, '\"', '\"') << "\n";
+
+  std::regex r("GeeksforGeeks33");
+  auto regOut = Utilities::ExtractStringPatternRegex(regInput, r);
+
+  for (auto rg : regOut) {
+    std::cout << "regex result: " << rg << std::endl;
+  }
 
   return 0;
 }
